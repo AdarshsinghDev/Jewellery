@@ -125,23 +125,50 @@ function CollectionRow({
     >
       <div className="rule" />
 
-      <div className="grid grid-cols-12 items-center gap-4 py-9 md:py-11">
+      <div className="grid grid-cols-12 items-center gap-4 py-7 md:py-11">
 
         {/* Index */}
         <div className="col-span-1 hidden md:block">
           <span className="font-sans text-[11px] font-light text-ghost">{data.index}</span>
         </div>
 
-        {/* Name + year */}
-        <div className="col-span-7 md:col-span-4">
+        {/* Name + year — mobile: 8 cols, desktop: 4 cols */}
+        <div className="col-span-8 md:col-span-4">
           <div className="label text-ghost mb-2">{data.year}</div>
           <h3 className="font-serif italic font-normal text-4xl md:text-5xl text-ink
                          group-hover:text-bronze-warm transition-colors duration-500 leading-none">
             {data.name}
           </h3>
+          {/* Mobile-only: idea line below name */}
+          <p className="md:hidden font-sans text-xs text-muted/70 mt-2 font-light">
+            {data.idea}
+          </p>
         </div>
 
-        {/* Idea + details — hidden mobile */}
+        {/* Mobile-only: static image — right side, always visible */}
+        <div className="col-span-3 md:hidden">
+          <div className="relative aspect-[3/4] w-full overflow-hidden">
+            <Image
+              src={data.image}
+              alt={data.alt}
+              fill
+              className="object-cover object-center"
+              sizes="25vw"
+            />
+          </div>
+        </div>
+
+        {/* Mobile arrow */}
+        <div className="col-span-1 md:hidden flex items-center justify-end">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="1.2"
+            className="text-muted" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
+        {/* Idea + details — desktop only */}
         <div className="col-span-4 hidden md:block">
           <p className="font-serif italic text-lg text-dim/70 mb-3 leading-tight">
             {data.idea}
@@ -153,19 +180,19 @@ function CollectionRow({
           </div>
         </div>
 
-        {/* Arrow */}
-        <div className="col-span-5 md:col-span-3 flex items-center justify-end gap-4">
+        {/* Desktop arrow */}
+        <div className="hidden md:flex col-span-3 items-center justify-end gap-4">
           <motion.span
             animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -6 }}
             transition={{ duration: 0.3 }}
-            className="label text-bronze-mid hidden md:inline"
+            className="label text-bronze-mid"
           >
             View
           </motion.span>
           <motion.div
             animate={{ width: isActive ? 40 : 16 }}
             transition={{ duration: 0.4, ease: [0.16,1,0.3,1] }}
-            className="h-px bg-bronze-warm/50 hidden md:block"
+            className="h-px bg-bronze-warm/50"
           />
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="1.2"
