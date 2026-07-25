@@ -10,12 +10,10 @@ import ArchiveSection      from "@/components/sections/ArchiveSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import BespokeSection      from "@/components/sections/BespokeSection";
 import NewsletterSection   from "@/components/sections/NewsletterSection";
-import CursorWrapper       from "@/components/ui/CursorWrapper";
 
 export default function Home() {
   return (
     <>
-      <CursorWrapper />
       <Navigation />
       <Hero />
       <Manifesto />

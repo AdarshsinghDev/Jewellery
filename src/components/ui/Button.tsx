@@ -40,16 +40,16 @@ export default function Button({
   "aria-label": ariaLabel,
 }: ButtonProps) {
   const base = clsx(
-    "relative inline-flex items-center justify-center overflow-hidden",
+    "relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap",
     "font-sans font-light tracking-[0.18em] uppercase",
     "transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
     "focus-visible:outline focus-visible:outline-1 focus-visible:outline-bronze-warm",
     "disabled:opacity-40 disabled:pointer-events-none",
     {
-      // sizes — no pill, tight proportions
-      "text-[10px] px-5 py-2.5":     size === "sm",
-      "text-[10px] px-7 py-3.5":     size === "md",
-      "text-[10.5px] px-9 py-4":     size === "lg",
+      // sizes
+      "text-[10px] px-5 py-2.5":      size === "sm",
+      "text-[10px] px-8 py-3.5":      size === "md",
+      "text-[10.5px] px-10 py-4":     size === "lg",
 
       // variants
       "bg-ink text-canvas border border-ink hover:bg-dim":
