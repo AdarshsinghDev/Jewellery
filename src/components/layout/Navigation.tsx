@@ -17,9 +17,9 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  // Nav background: barely-there on top, warm solid when scrolled
-  const bg      = useTransform(scrollY, [0, 80], ["rgba(245,240,232,0)", "rgba(245,240,232,0.97)"]);
-  const shadow  = useTransform(scrollY, [0, 80], ["0 0 0 rgba(28,24,20,0)", "0 1px 0 rgba(221,212,194,1)"]);
+  // Nav background — solid from the start so links always readable
+  const bg      = useTransform(scrollY, [0, 60], ["rgba(244,243,240,0.92)", "rgba(244,243,240,0.97)"]);
+  const shadow  = useTransform(scrollY, [0, 60], ["0 1px 0 rgba(210,206,202,0.4)", "0 1px 0 rgba(210,206,202,1)"]);
 
   useEffect(() => {
     const u = scrollY.on("change", v => setScrolled(v > 60));
@@ -34,16 +34,32 @@ export default function Navigation() {
       >
         <div className="max-w-content mx-auto px-6 md:px-10 lg:px-16 h-[76px] flex items-center justify-between">
 
-          {/* Left nav */}
+          {/* Mobile: logo left — Desktop: hidden (logo is centred absolutely) */}
+          <Link
+            href="/"
+            aria-label="Indo Nordic homepage"
+            className="md:hidden flex-shrink-0"
+          >
+            <Image
+              src="/IndoNordiclogoL.webp"
+              alt="Indo Nordic — Fine Jewelry House"
+              width={70}
+              height={22}
+              className="h-4 w-auto object-contain"
+              priority
+            />
+          </Link>
+
+          {/* Desktop: Left nav */}
           <nav aria-label="Primary left" className="hidden md:flex items-center gap-10">
             {LINKS.slice(0, 2).map(l => <NavLink key={l.label} {...l} />)}
           </nav>
 
-          {/* Wordmark — centred logo image */}
+          {/* Desktop: Wordmark centred */}
           <Link
             href="/"
             aria-label="Indo Nordic homepage"
-            className="absolute left-1/2 -translate-x-1/2"
+            className="hidden md:block absolute left-1/2 -translate-x-1/2"
           >
             <Image
               src="/IndoNordiclogoL.webp"
@@ -55,24 +71,24 @@ export default function Navigation() {
             />
           </Link>
 
-          {/* Right nav */}
+          {/* Desktop: Right nav */}
           <nav aria-label="Primary right" className="hidden md:flex items-center gap-10">
             {LINKS.slice(2).map(l => <NavLink key={l.label} {...l} />)}
             <button
               aria-label="Shopping bag"
-              className="label text-ghost hover:text-ink transition-colors duration-300 flex items-center gap-2"
+              className="label text-dim hover:text-ink transition-colors duration-300 flex items-center gap-2"
             >
               <BagIcon />
               Bag
             </button>
           </nav>
 
-          {/* Mobile burger */}
+          {/* Mobile: hamburger right */}
           <button
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen(!open)}
-            className="md:hidden ml-auto flex flex-col gap-[6px] p-1"
+            className="md:hidden flex flex-col gap-[6px] p-1 flex-shrink-0"
           >
             {[0,1,2].map(i => (
               <span
@@ -140,7 +156,7 @@ function NavLink({ label, href }: { label: string; href: string }) {
   return (
     <a
       href={href}
-      className="relative label text-ghost hover:text-ink transition-colors duration-300 group"
+      className="relative label text-dim hover:text-ink transition-colors duration-300 group"
     >
       {label}
       <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-bronze-warm group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]" />
